@@ -22,7 +22,7 @@ jobs:
           project_dir: "."
           arguments: ""
       - name: Commit Amplified tests
-        run:
+        run: |
           git config --global user.email "ampyfier@bot.com"
           git config --global user.name "AmPyfier Bot"
           git commit -m "Amplified tests"
