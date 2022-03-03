@@ -53,34 +53,29 @@ class SmallBankTest(unittest.TestCase):
         self.assertEqual(self.b.owner, 'Iwena Kroka')
         self.assertEqual(self.b.get_balance(), 210)
 
-    def testDeposit_numb_zero_0_call_rem_1_numb_zero_0(self):
+    def testDeposit_none_2_numb_zero_0_none_1(self):
         with self.assertRaises(Exception) as excep_info:
             self.b.deposit(0)
         self.assertEqual(self.b.get_balance(), 0)
         self.assertIsInstance(self.b.get_self(), SmallBank)
-        with self.assertRaises(Exception) as excep_info:
-            self.b.deposit(0)
         self.assertEqual(self.b.get_balance(), 0)
 
-    def testDeposit_call_add_1_none_3_none_1(self):
-        self.b.deposit(10)
-        self.assertEqual(self.b.get_transactions(), [10])
+    def testDeposit_numb_zero_1_call_add_1_none_0(self):
+        self.assertEqual(self.b.get_balance(), 0)
+        self.assertIsInstance(self.b.get_self(), SmallBank)
+        with self.assertRaises(Exception) as excep_info:
+            self.b.deposit(0)
+        with self.assertRaises(Exception) as excep_info:
+            self.b.deposit(-8032)
+        self.b.deposit(100)
+        self.assertEqual(self.b.get_transactions(), [100])
         self.assertFalse(self.b.is_empty())
         self.assertEqual(self.b.owner, 'Iwena Kroka')
-        self.assertEqual(self.b.get_balance(), 10)
-        self.assertIsInstance(self.b.get_self(), SmallBank)
-        with self.assertRaises(Exception) as excep_info:
-            self.b.deposit(-51787)
-        self.assertEqual(self.b.get_balance(), 10)
+        self.assertEqual(self.b.get_balance(), 100)
 
-    def testWithdraw_numb_zero_1_none_0(self):
+    def testWithdraw_call_rem_0_numb_zero_0(self):
         with self.assertRaises(Exception) as excep_info:
             self.b.withdraw(0)
-        self.assertEqual(self.b.get_balance(), 0)
-
-    def testWithdraw_none_0_numb_zero_0_numb_sub_0(self):
-        with self.assertRaises(Exception) as excep_info:
-            self.b.withdraw(-1)
         self.assertEqual(self.b.get_balance(), 0)
 
     def testWithdraw_call_rem_0(self):
@@ -88,6 +83,11 @@ class SmallBankTest(unittest.TestCase):
         self.assertEqual(self.b.get_transactions(), [])
         self.assertTrue(self.b.is_empty())
         self.assertEqual(self.b.owner, 'Iwena Kroka')
+        self.assertEqual(self.b.get_balance(), 0)
+
+    def testWithdraw_call_add_1_none_0_none_0(self):
+        with self.assertRaises(Exception) as excep_info:
+            self.b.withdraw(-13360)
         self.assertEqual(self.b.get_balance(), 0)
 
 
