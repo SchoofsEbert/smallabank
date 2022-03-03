@@ -25,6 +25,7 @@ jobs:
         run: |
           git config --global user.email "ampyfier@bot.com"
           git config --global user.name "AmPyfier Bot"
+          git add unit
           git commit -m "Amplified tests"
       - name: Push Amplified tests
         uses: ad-m/github-push-action@master
