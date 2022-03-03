@@ -1,0 +1,32 @@
+# This workflow will install AmPyfier and check if it is installed
+
+name: Build & Test AmPyfier & Amplify Examples
+
+on: [workflow_dispatch]
+
+jobs:
+  amplify_examples:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Set up AmPyfier
+        uses: SchoofsEbert/AmPyfier_actions@main
+        with:
+          token: ${{ secrets.AMPYFIER_TOKEN }}
+          python-version: "3.9"
+          test: "unit.smallbanktest"
+          project_dir: "."
+          arguments: ""
+      - name: Commit Amplified tests
+        run:
+          git commit -m "Amplified tests"
+      - name: Push Amplified tests
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
