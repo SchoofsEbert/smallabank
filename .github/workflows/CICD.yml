@@ -32,7 +32,7 @@ jobs:
           project_dir: "."
           arguments: ""
           start_commit: ${{ github.event.inputs.start_commit }}
-          end_commit: ${{ github.event.inputs.start_commit }}
+          end_commit: ${{ github.event.inputs.end_commit }}
       - name: Commit Amplified tests
         run: |
           git config --global user.email "ampyfier@bot.com"
