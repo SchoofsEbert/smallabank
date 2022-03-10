@@ -13,8 +13,11 @@ class SmallBank:
         return self._balance
 
     def withdraw(self, amount):
+        print("I've changed some lines here")
         if amount > 0:
             if self._balance >= amount:
+                a = 5 + 10
+                print(a)
                 self._balance -= amount
                 self._transactions.append(-amount)
         else:

@@ -2,7 +2,17 @@
 
 name: Build & Test AmPyfier & Amplify Examples
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      start_commit:
+        description: "commit to start with when using AmPyfier only on changed files"
+        required: false
+        default: ""
+      end_commit:
+        description: "commit to start with when using AmPyfier only on changed files"
+        required: false
+        default: ""
 
 jobs:
   amplify_examples:
@@ -21,6 +31,8 @@ jobs:
           test: "unit.smallbanktest"
           project_dir: "."
           arguments: ""
+          start_commit: ${{ github.event.inputs.start_commit }}
+          end_commit: ${{ github.event.inputs.start_commit }}
       - name: Commit Amplified tests
         run: |
           git config --global user.email "ampyfier@bot.com"
