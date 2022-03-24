@@ -28,6 +28,56 @@ class SmallBankTest(unittest.TestCase):
         self.b.deposit(100)
         self.assertEqual(self.b.get_transaction(0), 100)
 
+    def testWithdraw_amp(self):
+        self.b.deposit(100)
+        self.assertEqual(self.b.get_balance(), 100)
+        self.assertEqual(self.b.get_self(), self.b)
+        self.assertEqual(self.b.get_transactions(), [100])
+        self.assertFalse(self.b.is_empty())
+        self.assertEqual(self.b.owner, 'Iwena Kroka')
+        self.b.withdraw(30)
+        self.assertEqual(self.b.get_self(), self.b)
+        self.assertEqual(self.b.get_transactions(), [100, -30])
+        self.assertFalse(self.b.is_empty())
+        self.assertEqual(self.b.owner, 'Iwena Kroka')
+        self.assertEqual(self.b.get_balance(), 70)
+
+    def testWithdraw_amp_numb_zero_1_call_rem_0(self):
+        with self.assertRaises(Exception) as excep_info:
+            self.b.withdraw(0)
+        self.assertEqual(excep_info.exception.args, (
+            'Can only withdraw an amount > 0',))
+        self.assertEqual(self.b.get_balance(), 0)
+
+    def testWithdraw_amp_numb_zero_0_none_1(self):
+        with self.assertRaises(Exception) as excep_info:
+            self.b.deposit(0)
+        self.assertEqual(excep_info.exception.args, (
+            'Can only deposit an amount > 0',))
+        self.assertEqual(self.b.get_balance(), 0)
+
+    def testWithdraw_amp_call_rem_0(self):
+        self.b.withdraw(30)
+        self.assertEqual(self.b.get_self(), self.b)
+        self.assertEqual(self.b.get_transactions(), [])
+        self.assertTrue(self.b.is_empty())
+        self.assertEqual(self.b.owner, 'Iwena Kroka')
+        self.assertEqual(self.b.get_balance(), 0)
+
+    def testWithdraw_amp_call_rem_1_numb_zero_0_numb_sub_0(self):
+        with self.assertRaises(Exception) as excep_info:
+            self.b.deposit(-1)
+        self.assertEqual(excep_info.exception.args, (
+            'Can only deposit an amount > 0',))
+        self.assertEqual(self.b.get_balance(), 0)
+
+    def testWithdraw_amp_numb_zero_1_numb_sub_1_call_rem_0(self):
+        with self.assertRaises(Exception) as excep_info:
+            self.b.withdraw(-1)
+        self.assertEqual(excep_info.exception.args, (
+            'Can only withdraw an amount > 0',))
+        self.assertEqual(self.b.get_balance(), 0)
+
     def testInit_amp(self):
         b = SmallBank('Iwena Kroka')
         self.assertEqual(b.get_transactions(), [])
