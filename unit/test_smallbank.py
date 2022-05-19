@@ -1,32 +1,32 @@
-import pytest
 from smallbank import SmallBank
-
-import ampyfier
-
-@ampyfier.amplify_ignore
-def test_init():
-    b = SmallBank("Owner Ownerson")
-    assert b.get_balance() == 0
-
-@ampyfier.amplify_selection("NUM")
-def test_deposit(monkeypatch):
-    b = SmallBank("Owner Ownerson")
-    b.deposit(10)
-    assert b.get_balance() == 10
-    b.deposit(100)
-    b.deposit(100)
-    assert b.get_balance() == 210
+import unittest
 
 
-def test_withdraw():
-    b = SmallBank("Owner Ownerson")
-    b.deposit(100)
-    b.withdraw(30)
-    assert b.get_balance() == 70
+class SmallBankTest(unittest.TestCase):
+    def setUp(self):
+        self.b = SmallBank("Iwena Kroka")
+
+    def testInit(self):
+        b = SmallBank("Iwena Kroka")
+        self.assertEqual(b.get_balance(), 0)
+
+    def testDeposit(self):
+        self.b.deposit(10)
+        self.assertEqual(self.b.get_balance(), 10)
+        self.assertIsInstance(self.b.get_self(), SmallBank)
+        self.b.deposit(100)
+        self.b.deposit(100)
+        self.assertEqual(self.b.get_balance(), 210)
+
+    def testWithdraw(self):
+        self.b.deposit(100)
+        self.b.withdraw(30)
+        self.assertEqual(self.b.get_balance(), 70)
+
+    def testGetTransaction(self):
+        self.b.deposit(100)
+        self.assertEqual(self.b.get_transaction(0), 100)
 
 
-@ampyfier.amplify_ignore
-def test_get_transaction():
-    b = SmallBank("Owner Ownerson")
-    b.deposit(100)
-    assert b.get_transaction(0) == 100
+if __name__ == '__main__':
+    unittest.main()
