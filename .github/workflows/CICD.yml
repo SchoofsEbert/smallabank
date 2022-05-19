@@ -1,6 +1,6 @@
-# This workflow will install AmPyfier and check if it is installed
+# This workflow will execute AmPyfier on the unit.smallbanktest test suite
 
-name: Build & Test AmPyfier & Amplify Examples
+name: Amplify unit.smallbanktest
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
         required: false
         default: ""
       end_commit:
-        description: "commit to start with when using AmPyfier only on changed files"
+        description: "commit to end with when using AmPyfier only on changed files"
         required: false
         default: ""
 
@@ -23,7 +23,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Set up AmPyfier
+      - name: Amplify unit.smallbanktest
         uses: SchoofsEbert/AmPyfier_actions@main
         with:
           token: ${{ secrets.AMPYFIER_TOKEN }}
@@ -33,7 +33,7 @@ jobs:
           arguments: ""
           start_commit: ${{ github.event.inputs.start_commit }}
           end_commit: ${{ github.event.inputs.end_commit }}
-      - name: Commit Amplified tests
+      - name: Commit amplified tests
         run: |
           git config --global user.email "ampyfier@bot.com"
           git config --global user.name "AmPyfier Bot"
@@ -47,6 +47,6 @@ jobs:
       - name: Collect report
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.example }}_reports
+          name: smallbanktest_reports
           path: ampyfier_reports
 
