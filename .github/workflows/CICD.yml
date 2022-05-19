@@ -28,7 +28,7 @@ jobs:
         with:
           token: ${{ secrets.AMPYFIER_TOKEN }}
           python-version: "3.9"
-          test: "unit.smallbanktest"
+          test: "unit.test_smallbank"
           project_dir: "."
           arguments: ""
           start_commit: ${{ github.event.inputs.start_commit }}
