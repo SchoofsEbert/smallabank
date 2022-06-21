@@ -35,6 +35,7 @@ jobs:
           test: "unit.test_smallbank"
           project_dir: "."
           arguments: --size ${{ github.event.inputs.size }}
+          python_path: "test"
           start_commit: ${{ github.event.inputs.start_commit }}
           end_commit: ${{ github.event.inputs.end_commit }}
       - name: Commit amplified tests
