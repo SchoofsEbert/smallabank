@@ -1,6 +1,6 @@
 from smallbank import SmallBank
 import unittest
-
+from flask import jsonify
 
 class SmallBankTest(unittest.TestCase):
     def setUp(self):
