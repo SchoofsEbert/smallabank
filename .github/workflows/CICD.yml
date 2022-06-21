@@ -13,6 +13,10 @@ on:
         description: "commit to end with when using AmPyfier only on changed files"
         required: false
         default: ""
+      size:
+        description: "size parameter to pass to AmPyfier"
+        required: false
+        default: "20"
 
 jobs:
   amplify_examples:
@@ -30,7 +34,7 @@ jobs:
           python-version: "3.9"
           test: "unit.test_smallbank"
           project_dir: "."
-          arguments: ""
+          arguments: --size ${{ github.event.inputs.size }}
           start_commit: ${{ github.event.inputs.start_commit }}
           end_commit: ${{ github.event.inputs.end_commit }}
       - name: Commit amplified tests
