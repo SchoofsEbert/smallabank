@@ -8,7 +8,7 @@ class SmallBankTest(unittest.TestCase):
 
     def testInit(self):
         b = SmallBank("Iwena Kroka")
-        self.assertEqual(b.get_balance(), 0)
+        self.assertEqual(b.get_balance(), 10)
 
     def testDeposit(self):
         self.b.deposit(10)
